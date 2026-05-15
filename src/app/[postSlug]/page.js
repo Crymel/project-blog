@@ -5,6 +5,7 @@ import BlogHero from "@/components/BlogHero";
 import styles from "./postSlug.module.css";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { BLOG_TITLE } from "@/constants";
+import CodeSnippet from "@/components/CodeSnippet/CodeSnippet";
 
 export async function generateMetadata({ params }) {
   const { postSlug } = await params;
@@ -15,6 +16,10 @@ export async function generateMetadata({ params }) {
     description: frontmatter.abstract,
   };
 }
+
+const customComponents = {
+  pre: (props) => CodeSnippet(props),
+};
 
 import { loadBlogPost } from "@/helpers/file-helpers";
 async function BlogPost({ params }) {
@@ -28,7 +33,7 @@ async function BlogPost({ params }) {
         publishedOn={new Date(frontmatter.publishedOn)}
       />
       <div className={styles.page}>
-        <MDXRemote source={content} />
+        <MDXRemote source={content} components={{ ...customComponents }} />
       </div>
     </article>
   );
