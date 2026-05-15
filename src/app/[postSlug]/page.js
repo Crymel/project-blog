@@ -4,13 +4,22 @@ import BlogHero from "@/components/BlogHero";
 
 import styles from "./postSlug.module.css";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { BLOG_TITLE } from "@/constants";
+
+export async function generateMetadata({ params }) {
+  const { postSlug } = await params;
+  const { frontmatter } = await loadBlogPost(postSlug);
+
+  return {
+    title: `${frontmatter.title} • ${BLOG_TITLE}`,
+    description: frontmatter.abstract,
+  };
+}
 
 import { loadBlogPost } from "@/helpers/file-helpers";
 async function BlogPost({ params }) {
   const { postSlug } = await params;
   const { frontmatter, content } = await loadBlogPost(postSlug);
-
-  console.log(JSON.stringify(frontmatter));
 
   return (
     <article className={styles.wrapper}>
