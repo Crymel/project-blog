@@ -1,11 +1,19 @@
 import React from "react";
+import dynamic from "next/dynamic";
+
+import styles from "./postSlug.module.css";
+
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { BLOG_TITLE } from "@/constants";
 
 import BlogHero from "@/components/BlogHero";
 
-import styles from "./postSlug.module.css";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { BLOG_TITLE } from "@/constants";
-import CodeSnippet from "@/components/CodeSnippet/CodeSnippet";
+const CodeSnippet = dynamic(() =>
+  import("@/components/CodeSnippet/CodeSnippet")
+);
+const DivisionGroupsDemo = dynamic(() =>
+  import("@/components/DivisionGroupsDemo")
+);
 
 export async function generateMetadata({ params }) {
   const { postSlug } = await params;
@@ -19,6 +27,7 @@ export async function generateMetadata({ params }) {
 
 const customComponents = {
   pre: (props) => CodeSnippet(props),
+  DivisionGroupsDemo,
 };
 
 import { loadBlogPost } from "@/helpers/file-helpers";
