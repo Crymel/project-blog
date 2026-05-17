@@ -3,6 +3,7 @@ import { Work_Sans, Spline_Sans_Mono } from "next/font/google";
 import clsx from "clsx";
 import { cookies } from "next/headers";
 
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RespectMotionPreference from "@/components/RespectMotionPreference";
@@ -32,11 +33,13 @@ async function RootLayout({ children }) {
       data-theme={theme === "system" ? undefined : theme}
     >
       <body>
-        <RespectMotionPreference>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </RespectMotionPreference>
+        <ThemeProvider initialTheme={theme}>
+          <RespectMotionPreference>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </RespectMotionPreference>
+        </ThemeProvider>
       </body>
     </html>
   );

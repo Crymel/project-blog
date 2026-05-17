@@ -1,19 +1,12 @@
-"use client";
 import React from "react";
 import clsx from "clsx";
 import { Rss } from "react-feather";
 
 import Logo from "@/components/Logo";
 import VisuallyHidden from "@/components/VisuallyHidden";
+import ThemeButton from "@/components/ThemeButton";
 
 import styles from "./Header.module.css";
-
-import dynamic from "next/dynamic";
-
-const ThemeButton = dynamic(() => import("@/components/ThemeButton"), {
-  ssr: false,
-  loading: () => <button className={styles.action} />,
-});
 
 function Header({ className, ...delegated }) {
   return (
