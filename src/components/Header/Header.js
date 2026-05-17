@@ -7,6 +7,7 @@ import VisuallyHidden from "@/components/VisuallyHidden";
 import ThemeButton from "@/components/ThemeButton";
 
 import styles from "./Header.module.css";
+import Link from "next/link";
 
 function Header({ className, ...delegated }) {
   return (
@@ -14,7 +15,7 @@ function Header({ className, ...delegated }) {
       <Logo />
 
       <div className={styles.actions}>
-        <button className={styles.action}>
+        <Link className={styles.action} href={"/rss.xml"}>
           <Rss
             size="1.5rem"
             style={{
@@ -23,7 +24,7 @@ function Header({ className, ...delegated }) {
             }}
           />
           <VisuallyHidden>View RSS feed</VisuallyHidden>
-        </button>
+        </Link>
         <ThemeButton />
       </div>
     </header>
